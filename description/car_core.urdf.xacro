@@ -1,0 +1,210 @@
+<robot name="camera_car_simple" version="1.0">
+    <joint name="cam_joint" type="revolute">
+        <limit lower="-3.14000" upper="3.14000" effort="100.00000" velocity="100.00000"/>
+        <origin rpy="0.00000 0.00000 -0.00000" xyz="0.02000 0.00000 0.07000"/>
+        <parent link="rotate"/>
+        <child link="cam"/>
+        <axis xyz="1.00000 0.00000 0.00000"/>
+    </joint>
+    <joint name="camera_sensor_link_joint" type="fixed">
+        <origin rpy="0.00000 0.00000 -0.00000" xyz="-0.02000 0.03499 -0.00083"/>
+        <parent link="cam"/>
+        <child link="camera_sensor_link"/>
+    </joint>
+    <joint name="rotate_joint" type="revolute">
+        <limit lower="-3.14000" upper="3.14000" effort="100.00000" velocity="100.00000"/>
+        <origin rpy="0.00000 0.00000 -1.57080" xyz="0.00000 0.00000 0.00000"/>
+        <parent link="body"/>
+        <child link="rotate"/>
+        <axis xyz="0.00000 0.00000 1.00000"/>
+    </joint>
+    <joint name="wheel_bl_joint" type="continuous">
+        <limit lower="0" upper="0" effort="100.00000" velocity="100.00000"/>
+        <origin rpy="0.00000 0.00000 -1.57080" xyz="-0.15500 0.20000 -0.07600"/>
+        <parent link="body"/>
+        <child link="wheel_bl"/>
+        <axis xyz="-1.00000 0.00000 0.00000"/>
+    </joint>
+    <joint name="wheel_br_joint" type="continuous">
+        <limit lower="0" upper="0" effort="100.00000" velocity="100.00000"/>
+        <origin rpy="0.00000 0.00000 -1.57080" xyz="-0.15500 -0.20000 -0.07600"/>
+        <parent link="body"/>
+        <child link="wheel_br"/>
+        <axis xyz="-1.00000 0.00000 0.00000"/>
+    </joint>
+    <joint name="wheel_fl_joint" type="continuous">
+        <limit lower="0" upper="0" effort="100.00000" velocity="100.00000"/>
+        <origin rpy="0.00000 0.00000 -1.57080" xyz="0.15500 0.20000 -0.07600"/>
+        <parent link="body"/>
+        <child link="wheel_fl"/>
+        <axis xyz="-1.00000 0.00000 0.00000"/>
+    </joint>
+    <joint name="wheel_fr_joint" type="continuous">
+        <limit lower="0" upper="0" effort="100.00000" velocity="100.00000"/>
+        <origin rpy="0.00000 0.00000 -1.57080" xyz="0.15500 -0.20000 -0.07600"/>
+        <parent link="body"/>
+        <child link="wheel_fr"/>
+        <axis xyz="-1.00000 0.00000 0.00000"/>
+    </joint>
+    <link name="body">
+        <collision name="body_collision">
+            <origin rpy="0.00000 0.00000 -1.57080" xyz="0.00000 0.00000 0.00000"/>
+            <geometry>
+                <mesh filename="file:///home/yaroslav/ros2_ws/src/camera_car_simple/description/meshes/stl/body-mesh.stl" scale="1.00000 1.00000 1.00000"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <inertia ixx="0.03987" ixy="0.00000" ixz="0.00000" iyy="0.02791" iyz="-0.00000" izz="0.06464"/>
+            <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 -0.04608"/>
+            <mass value="2.80800"/>
+        </inertial>
+        <visual name="body-obj">
+            <origin rpy="0.00000 0.00000 -1.57080" xyz="0.00000 0.00000 0.00000"/>
+            <material name="Материал.001"/>
+            <geometry>
+                <mesh filename="file:///home/yaroslav/ros2_ws/src/camera_car_simple/description/meshes/stl/body-mesh.stl" scale="1.00000 1.00000 1.00000"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="cam">
+        <collision name="cam_collision">
+            <origin rpy="0.00000 0.00000 -0.00000" xyz="-0.02282 0.00074 -0.00002"/>
+            <geometry>
+                <box size="0.04000 0.05486 0.04091"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <inertia ixx="0.00008" ixy="0.00000" ixz="-0.00000" iyy="0.00006" iyz="0.00000" izz="0.00008"/>
+            <origin rpy="0.00000 0.00000 0.00000" xyz="-0.02000 0.00520 -0.00012"/>
+            <mass value="0.26000"/>
+        </inertial>
+        <visual name="cam-obj">
+            <origin rpy="0.00000 0.00000 -0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <material name="Материал.001"/>
+            <geometry>
+                <mesh filename="file:///home/yaroslav/ros2_ws/src/camera_car_simple/description/meshes/stl/cam-mesh.stl" scale="1.00000 1.00000 1.00000"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="camera_sensor_link">
+        <sensor name="camera_sensor" type="camera">
+            <origin rpy="-1.57080 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <parent link="camera_sensor_link"/>
+            <camera>
+                <image>
+                    <width>1920</width>
+                    <height>1080</height>
+                    <hfov>1.57080</hfov>
+                </image>
+            </camera>
+        </sensor>
+        <inertial>
+            <inertia ixx="0.00001" ixy="0.00000" ixz="0.00000" iyy="0.00001" iyz="0.00000" izz="0.00001"/>
+            <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00001"/>
+        </inertial>
+    </link>
+    <link name="rotate">
+        <collision name="rotator_collision">
+            <origin rpy="0.00000 0.00000 -0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <geometry>
+                <mesh filename="file:///home/yaroslav/ros2_ws/src/camera_car_simple/description/meshes/stl/rotate-mesh.stl" scale="1.00000 1.00000 1.00000"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <inertia ixx="0.00006" ixy="-0.00000" ixz="-0.00004" iyy="0.00010" iyz="-0.00000" izz="0.00006"/>
+            <origin rpy="0.00000 0.00000 0.00000" xyz="0.02599 -0.00000 0.03366"/>
+            <mass value="0.10400"/>
+        </inertial>
+        <visual name="rotate-obj">
+            <origin rpy="0.00000 0.00000 -0.00000" xyz="-0.00000 0.00000 0.00000"/>
+            <material name="Материал.001"/>
+            <geometry>
+                <mesh filename="file:///home/yaroslav/ros2_ws/src/camera_car_simple/description/meshes/stl/rotate-mesh.stl" scale="1.00000 1.00000 1.00000"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="wheel_bl">
+        <collision name="wheel_bl_collision">
+            <origin rpy="0.00000 1.57080 0.00000" xyz="-0.00989 -0.00004 0.00001"/>
+            <geometry>
+                <cylinder radius="0.05449" length="0.03000"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <inertia ixx="0.00043" ixy="-0.00000" ixz="0.00000" iyy="0.00024" iyz="0.00000" izz="0.00024"/>
+            <origin rpy="0.00000 0.00000 0.00000" xyz="-0.01002 -0.00025 0.00007"/>
+            <mass value="0.31200"/>
+        </inertial>
+        <visual name="wheel_bl-obj">
+            <origin rpy="0.00000 0.00000 -0.00000" xyz="-0.00000 -0.00000 0.00000"/>
+            <material name="Материал.001"/>
+            <geometry>
+                <mesh filename="file:///home/yaroslav/ros2_ws/src/camera_car_simple/description/meshes/stl/wheel_bl-mesh.stl" scale="1.00000 1.00000 1.00000"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="wheel_br">
+        <collision name="wheel_br_collision">
+            <origin rpy="0.00000 1.57080 0.00000" xyz="0.00992 -0.00004 0.00001"/>
+            <geometry>
+                <cylinder radius="0.05449" length="0.03000"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <inertia ixx="0.00043" ixy="0.00000" ixz="-0.00000" iyy="0.00024" iyz="0.00000" izz="0.00024"/>
+            <origin rpy="0.00000 0.00000 0.00000" xyz="0.01002 -0.00025 0.00007"/>
+            <mass value="0.31200"/>
+        </inertial>
+        <visual name="wheel_br-obj">
+            <origin rpy="0.00000 0.00000 -0.00000" xyz="0.00000 -0.00000 0.00000"/>
+            <material name="Материал.001"/>
+            <geometry>
+                <mesh filename="file:///home/yaroslav/ros2_ws/src/camera_car_simple/description/meshes/stl/wheel_br-mesh.stl" scale="1.00000 1.00000 1.00000"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="wheel_fl">
+        <collision name="wheel_fl_collision">
+            <origin rpy="0.00000 1.57080 0.00000" xyz="-0.01010 0.00004 0.00001"/>
+            <geometry>
+                <cylinder radius="0.05449" length="0.03000"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <inertia ixx="0.00043" ixy="0.00000" ixz="0.00000" iyy="0.00024" iyz="-0.00000" izz="0.00024"/>
+            <origin rpy="0.00000 0.00000 0.00000" xyz="-0.01002 0.00025 0.00007"/>
+            <mass value="0.31200"/>
+        </inertial>
+        <visual name="wheel_fl-obj">
+            <origin rpy="0.00000 0.00000 -0.00000" xyz="-0.00000 -0.00000 0.00000"/>
+            <material name="Материал.001"/>
+            <geometry>
+                <mesh filename="file:///home/yaroslav/ros2_ws/src/camera_car_simple/description/meshes/stl/wheel_fl-mesh.stl" scale="1.00000 1.00000 1.00000"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="wheel_fr">
+        <collision name="wheel_fr_collision">
+            <origin rpy="0.00000 1.57080 0.00000" xyz="0.00999 0.00004 0.00001"/>
+            <geometry>
+                <cylinder radius="0.05449" length="0.03000"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <inertia ixx="0.00043" ixy="-0.00000" ixz="-0.00000" iyy="0.00024" iyz="-0.00000" izz="0.00024"/>
+            <origin rpy="0.00000 0.00000 0.00000" xyz="0.01002 0.00025 0.00007"/>
+            <mass value="0.31200"/>
+        </inertial>
+        <visual name="wheel_fr-obj">
+            <origin rpy="0.00000 0.00000 -0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <material name="Материал.001"/>
+            <geometry>
+                <mesh filename="file:///home/yaroslav/ros2_ws/src/camera_car_simple/description/meshes/stl/wheel_fr-mesh.stl" scale="1.00000 1.00000 1.00000"/>
+            </geometry>
+        </visual>
+    </link>
+    <material name="Материал.001">
+        <color rgba="0.00000 0.00000 0.00000 1.00000"/>
+    </material>
+</robot>

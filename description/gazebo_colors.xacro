@@ -1,0 +1,39 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <gazebo reference="wheel_fr">
+        <material>
+            Gazebo/Black
+        </material>
+    </gazebo>
+    <gazebo reference="wheel_fl">
+        <material>
+            Gazebo/Black
+        </material>
+    </gazebo>
+    <gazebo reference="wheel_br">
+        <material>
+            Gazebo/Black
+        </material>
+    </gazebo>
+    <gazebo reference="wheel_bl">
+        <material>
+            Gazebo/Black
+        </material>
+    </gazebo>
+
+    <gazebo reference="body">
+        <material>
+            Gazebo/Black
+        </material>
+    </gazebo>
+
+    <gazebo reference="cam">
+        <material>
+            Gazebo/Black
+        </material>
+    </gazebo>
+    <gazebo reference="rotate">
+        <material>
+            Gazebo/Black
+        </material>
+    </gazebo>
+</robot>

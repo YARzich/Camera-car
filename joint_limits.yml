@@ -1,0 +1,74 @@
+{
+  "limits": {
+    "elements": [
+      {
+        "max": {
+          "effort": 100.0,
+          "position": 3.140000104904175,
+          "speed": 100.0
+        },
+        "min": {
+          "position": -3.140000104904175
+        }
+      },
+      {
+        "max": {
+          "effort": 100.0,
+          "position": 3.140000104904175,
+          "speed": 100.0
+        },
+        "min": {
+          "position": -3.140000104904175
+        }
+      },
+      {
+        "max": {
+          "effort": 100.0,
+          "position": 0,
+          "speed": 100.0
+        },
+        "min": {
+          "position": 0
+        }
+      },
+      {
+        "max": {
+          "effort": 100.0,
+          "position": 0,
+          "speed": 100.0
+        },
+        "min": {
+          "position": 0
+        }
+      },
+      {
+        "max": {
+          "effort": 100.0,
+          "position": 0,
+          "speed": 100.0
+        },
+        "min": {
+          "position": 0
+        }
+      },
+      {
+        "max": {
+          "effort": 100.0,
+          "position": 0,
+          "speed": 100.0
+        },
+        "min": {
+          "position": 0
+        }
+      }
+    ],
+    "names": [
+      "cam_joint",
+      "rotate_joint",
+      "wheel_bl_joint",
+      "wheel_br_joint",
+      "wheel_fl_joint",
+      "wheel_fr_joint"
+    ]
+  }
+}
