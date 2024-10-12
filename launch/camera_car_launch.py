@@ -77,6 +77,20 @@ def generate_launch_description():
         arguments=['joint_state_broadcaster'],
     )
 
+    controller_converter = Node(
+        package='camera_car_simple',
+        executable='controller_converter',
+        name='controller_converter',
+        output='both',
+    )
+
+    teleoperation_keyboard = Node(
+        package='teleoperation_dual_control',
+        executable='teleoperation_dual_control_keyboard',
+        name='teleoperation_keyboard',
+        output='screen',
+    )
+
     return LaunchDescription([
         robot_state_publisher,
         # rviz2,
@@ -85,4 +99,6 @@ def generate_launch_description():
         diff_controller,
         position_controller,
         joint_state_broadcaster,
+        controller_converter,
+        teleoperation_keyboard
     ])
