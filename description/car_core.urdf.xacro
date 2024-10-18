@@ -86,24 +86,7 @@
             </geometry>
         </visual>
     </link>
-    <link name="camera_sensor_link">
-        <sensor name="camera_sensor" type="camera">
-            <origin rpy="-1.57080 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
-            <parent link="camera_sensor_link"/>
-            <camera>
-                <image>
-                    <width>1920</width>
-                    <height>1080</height>
-                    <hfov>1.57080</hfov>
-                </image>
-            </camera>
-        </sensor>
-        <inertial>
-            <inertia ixx="0.00001" ixy="0.00000" ixz="0.00000" iyy="0.00001" iyz="0.00000" izz="0.00001"/>
-            <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
-            <mass value="0.00001"/>
-        </inertial>
-    </link>
+    <link name="camera_sensor_link"/>
     <link name="rotate">
         <collision name="rotator_collision">
             <origin rpy="0.00000 0.00000 -0.00000" xyz="0.00000 0.00000 0.00000"/>

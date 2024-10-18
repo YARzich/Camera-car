@@ -16,7 +16,7 @@ public:
               speed(1.0),
               rotator_angle(0.0),
               camera_angle(0.0),
-              adding_angle(1.0)
+              adding_angle(0.25)
     {
         publisher_diff_drive = this->create_publisher<geometry_msgs::msg::TwistStamped>("/diff_controller/cmd_vel", 10);
         publisher_camera_position = this->create_publisher<std_msgs::msg::Float64MultiArray>("/position_controller/commands", 10);

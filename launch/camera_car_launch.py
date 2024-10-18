@@ -77,6 +77,7 @@ def generate_launch_description():
         arguments=['joint_state_broadcaster'],
     )
 
+    # Teleoperation
     controller_converter = Node(
         package='camera_car_simple',
         executable='controller_converter',
@@ -91,14 +92,37 @@ def generate_launch_description():
         output='screen',
     )
 
+    #Camera
+    camera_info = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='camera_info_bridge',
+        arguments=[
+            '/camera1/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo'
+        ],
+        output='screen'
+    )
+
+    camera_image = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='image_bridge',
+        arguments=[
+            '/camera1/image@sensor_msgs/msg/Image[gz.msgs.Image'
+        ],
+        output='screen'
+    )
+
     return LaunchDescription([
         robot_state_publisher,
-        # rviz2,
+        rviz2,
         gazebo,
         spawn_entity,
         diff_controller,
         position_controller,
         joint_state_broadcaster,
         controller_converter,
-        teleoperation_keyboard
+        teleoperation_keyboard,
+        camera_info,
+        camera_image
     ])
