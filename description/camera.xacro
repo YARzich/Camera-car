@@ -25,7 +25,7 @@
                 </clip>
             </camera>
             <topic>camera1/image</topic>
-            <gz_frame_id>camera_link_optical</gz_frame_id>
+            <gz_frame_id>camera_sensor_link</gz_frame_id>
         </sensor>
     </gazebo>
 </robot>

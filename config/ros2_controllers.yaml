@@ -14,7 +14,7 @@ controller_manager:
 
 diff_controller:
   ros__parameters:
-    base_frame_id: body
+    base_frame_id: base_link
 
     wheel_separation: 0.4
     wheel_radius: 0.05449

@@ -1,6 +1,7 @@
 import os
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, RegisterEventHandler, ExecuteProcess
+from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
@@ -48,10 +49,25 @@ def generate_launch_description():
     )
 
     # Gazebo
+    default_world = os.path.join(
+        get_package_share_directory('camera_car_simple'),
+        'worlds',
+        'empty.world'
+    )
+
+    world = LaunchConfiguration('world')
+
+    world_arg = DeclareLaunchArgument(
+        'world',
+        default_value=default_world,
+        description='World to load'
+    )
+
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')]),
-        launch_arguments={'gz_args': 'empty.sdf', "use_sim_time": 'True'}.items()
+        launch_arguments={'gz_args': ['-r -v4 ', world],
+                          'on_exit_shutdown': 'true'}.items()
     )
     spawn_entity = Node(package='ros_gz_sim',
                         executable='create',
@@ -92,30 +108,36 @@ def generate_launch_description():
         output='screen',
     )
 
-    #Camera
-    camera_info = Node(
+    #Bridge
+    bridge_params = os.path.join(
+        get_package_share_directory('camera_car_simple'),
+        'config',
+        'gz_bridge.yaml'
+    )
+
+    ros_gz_bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        name='camera_info_bridge',
         arguments=[
-            '/camera1/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo'
+            '--ros-args',
+            '-p',
+            f'config_file:={bridge_params}',
         ],
+    )
+
+    #SLAM
+    slam_toolbox_node = ExecuteProcess(
+        cmd=['ros2', 'launch', 'slam_toolbox', 'online_async_launch.py',
+             'params_file:=./ros2_ws/src/camera_car_simple/config/mapper_params_online_async.yaml',
+             'use_sim_time:=true'],
         output='screen'
     )
 
-    camera_image = Node(
-        package='ros_gz_bridge',
-        executable='parameter_bridge',
-        name='image_bridge',
-        arguments=[
-            '/camera1/image@sensor_msgs/msg/Image[gz.msgs.Image'
-        ],
-        output='screen'
-    )
 
     return LaunchDescription([
         robot_state_publisher,
         rviz2,
+        world_arg,
         gazebo,
         spawn_entity,
         diff_controller,
@@ -123,6 +145,6 @@ def generate_launch_description():
         joint_state_broadcaster,
         controller_converter,
         teleoperation_keyboard,
-        camera_info,
-        camera_image
+        ros_gz_bridge,
+        slam_toolbox_node
     ])
